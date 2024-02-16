@@ -1,0 +1,22 @@
+---
+version: "3"
+services:
+  knote:
+    image: knote:latest
+    container_name: knote
+    restart: always
+    networks:
+      - knote
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/dev
+  mongo:
+    image: mongo
+    container_name: mongo
+    networks:
+      - knote
+    restart: unless-stopped
+networks:
+  knote:
+    external: true
